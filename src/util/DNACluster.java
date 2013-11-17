@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 
 import Interface.KMCluster;
+import Interface.KMNum;
 
 public class DNACluster implements KMCluster {
 
@@ -22,7 +23,7 @@ public class DNACluster implements KMCluster {
 		this.list = list;
 	}
 
-	public DNA getCentroid() {
+	public KMNum getCentroid() {
 		return centroid;
 	}
 
@@ -31,11 +32,11 @@ public class DNACluster implements KMCluster {
 	}
 
 	
-	public void addDNA(DNA newDNA) {
-		this.list.add(newDNA);
+	public void addEle(KMNum newDNA) {
+		this.list.add(((DNA)newDNA));
 	}
 	
-	public DNA updateCentroid() {
+	public KMNum updateCentroid() {
 		if(this.list == null || this.list.size() == 0) {
 			System.out.println("Cannot update the centroid.");
 			return null;
@@ -92,5 +93,8 @@ public class DNACluster implements KMCluster {
 	@Override
 	public String toString() {
 		return "DNACluster [list=" + list + ", centroid=" + centroid + "]";
+	}
+	public void clearList() {
+		this.list = new ArrayList<DNA>();
 	}
 }

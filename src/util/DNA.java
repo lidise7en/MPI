@@ -19,9 +19,9 @@ public class DNA implements KMNum {
 	public void setElement(String[] element) {
 		this.element = element;
 	}
-	
-	public double ClaDistance(DNA dna) {
-		String[] dnaString = dna.getElement();
+	@Override
+	public double CalDistance(KMNum e) {
+		String[] dnaString = ((DNA)e).getElement();
 		if(element.length != dnaString.length)
 			System.out.println("Two DNAs' length are not the same");
 		double result = 0;
@@ -36,5 +36,8 @@ public class DNA implements KMNum {
 	@Override
 	public String toString() {
 		return "DNA [element=" + Arrays.toString(element) + "]";
+	}
+	public KMNum clone() {
+		return new DNA(this.element);
 	}
 }

@@ -8,6 +8,9 @@ public interface KMCluster extends Serializable {
 	public ArrayList<KMNum> listOfNum = null;
 	public KMNum centroid = null;
 	
-	
 
+	public void addEle(KMNum e);
+	public KMNum updateCentroid();
+	public KMNum getCentroid();
+	public void clearList();
 }

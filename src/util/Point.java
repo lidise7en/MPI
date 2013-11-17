@@ -27,13 +27,16 @@ public class Point implements KMNum {
 		this.y = y;
 	}
 
-	public double CalDistance(Point num) {
+	public double CalDistance(KMNum num) {
 		
-		return Math.sqrt(Math.pow(this.x - num.getX(), 2)+Math.pow(this.y - num.getY(), 2));
+		return Math.sqrt(Math.pow(this.x - ((Point)num).getX(), 2)+Math.pow(this.y - ((Point)num).getY(), 2));
 	}
 
 	@Override
 	public String toString() {
 		return "Point [x=" + x + ", y=" + y + "]";
+	}
+	public KMNum clone() {
+		return new Point(this.x, this.y);
 	}
 }

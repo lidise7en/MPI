@@ -28,7 +28,7 @@ public class PointCluster implements KMCluster {
 		this.list = list;
 	}
 
-	public Point getCentroid() {
+	public KMNum getCentroid() {
 		return centroid;
 	}
 
@@ -38,13 +38,13 @@ public class PointCluster implements KMCluster {
 
 	
 
-	public void addData(Point newNum) {
+	public void addEle(KMNum newNum) {
 		// TODO Auto-generated method stub
-		this.list.add(newNum);
+		this.list.add(((Point)newNum));
 	}
 
 
-	public Point updateCentroid() {
+	public KMNum updateCentroid() {
 		// TODO Auto-generated method stub
 		double xSum = 0;
 		double ySum = 0;
@@ -56,6 +56,8 @@ public class PointCluster implements KMCluster {
 		return this.centroid;
 	}
 
-	
+	public void clearList() {
+		this.list = new ArrayList<Point>();
+	}
 	
 }
