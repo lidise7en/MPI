@@ -7,6 +7,7 @@ import Interface.KMNum;
 
 public class DNACluster implements KMCluster {
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<DNA> list = new ArrayList<DNA>();
 	private DNA centroid = null;
 	
@@ -97,4 +98,6 @@ public class DNACluster implements KMCluster {
 	public void clearList() {
 		this.list = new ArrayList<DNA>();
 	}
+
+
 }

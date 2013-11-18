@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public interface KMCluster extends Serializable {
 
+
 	public ArrayList<KMNum> listOfNum = null;
 	public KMNum centroid = null;
 	
@@ -13,4 +14,6 @@ public interface KMCluster extends Serializable {
 	public KMNum updateCentroid();
 	public KMNum getCentroid();
 	public void clearList();
+
+
 }
