@@ -6,6 +6,7 @@ import Interface.KMNum;
 
 public class DNA implements KMNum {
 
+	private static final long serialVersionUID = 1L;
 	private String[] element = null;
 	
 	public DNA(String[] ele) {
