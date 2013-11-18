@@ -104,7 +104,7 @@ public class Master {
 		return result;
 	}
 	
-	public int findNearestCluster(KMNum num, ArrayList<KMCluster> clusterList) {
+	public static int findNearestCluster(KMNum num, ArrayList<KMCluster> clusterList) {
 		double minDis = num.CalDistance(clusterList.get(0).getCentroid());
 		int idx = 0;
 		for(int i = 1;i < clusterList.size();i ++) {

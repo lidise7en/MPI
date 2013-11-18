@@ -14,6 +14,6 @@ public interface KMCluster extends Serializable {
 	public KMNum updateCentroid();
 	public KMNum getCentroid();
 	public void clearList();
-
-
+	public ArrayList<KMNum> getFakeList();
+	public void combine(KMCluster cluster);
 }

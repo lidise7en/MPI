@@ -20,6 +20,14 @@ public class DNACluster implements KMCluster {
 		return list;
 	}
 
+	public ArrayList<KMNum> getFakeList() {
+		ArrayList<KMNum> fakeList = new ArrayList<KMNum>();
+		for(int i = 0;i < list.size();i ++) {
+			fakeList.add((KMNum)list.get(i));
+		}
+		return fakeList;
+	}
+
 	public void setList(ArrayList<DNA> list) {
 		this.list = list;
 	}
@@ -97,6 +105,15 @@ public class DNACluster implements KMCluster {
 	}
 	public void clearList() {
 		this.list = new ArrayList<DNA>();
+	}
+
+	@Override
+	public void combine(KMCluster cluster) {
+		ArrayList<KMNum> fakeList = cluster.getFakeList();
+		for(int i = 0;i < fakeList.size();i ++) {
+			this.list.add((DNA)fakeList.get(i));
+		}
+		
 	}
 
 
