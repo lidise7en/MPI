@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Interface.KMCluster;
 import Interface.KMNum;
 import util.MPIMessage;
-
+import mpi.*;
 public class Slave {
 
 	private int num;
@@ -17,7 +17,7 @@ public class Slave {
 	public void waitForCompletion() {
 		while(flag) {
 			MPIMessage[] messages = new MPIMessage[1];
-			 MPI_Scatter(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
+			 mpi.MPI_Scatter(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
 			 if(messages[0] == null)
 				 flag = false;
 			 else {

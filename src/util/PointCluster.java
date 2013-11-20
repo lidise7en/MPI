@@ -8,23 +8,24 @@ import Interface.KMNum;
 public class PointCluster implements KMCluster {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Point> list = null;
-	private Point centroid = null;
+	private ArrayList<PointTwoD> list = null;
+	private PointTwoD centroid = null;
 	
-	public PointCluster() {
-		 this.list = new ArrayList<Point>();
+	public PointCluster(PointTwoD cen) {
+		 this.list = new ArrayList<PointTwoD>();
+		 this.centroid = cen;
 	}
 	
-	public PointCluster(ArrayList<Point> list, Point cen) {
+	public PointCluster(ArrayList<PointTwoD> list, PointTwoD cen) {
 		this.list = list;
 		this.centroid = cen;
 	}
 	
-	public ArrayList<Point> getList() {
+	public ArrayList<PointTwoD> getList() {
 		return list;
 	}
 
-	public void setList(ArrayList<Point> list) {
+	public void setList(ArrayList<PointTwoD> list) {
 		this.list = list;
 	}
 
@@ -32,7 +33,7 @@ public class PointCluster implements KMCluster {
 		return centroid;
 	}
 
-	public void setCentroid(Point centroid) {
+	public void setCentroid(PointTwoD centroid) {
 		this.centroid = centroid;
 	}
 
@@ -46,7 +47,7 @@ public class PointCluster implements KMCluster {
 
 	public void addEle(KMNum newNum) {
 		// TODO Auto-generated method stub
-		this.list.add(((Point)newNum));
+		this.list.add(((PointTwoD)newNum));
 	}
 
 
@@ -58,19 +59,19 @@ public class PointCluster implements KMCluster {
 			xSum += this.list.get(i).getX();
 			ySum += this.list.get(i).getY();
 		}
-		this.centroid = new Point(xSum/this.list.size(), ySum/this.list.size());
+		this.centroid = new PointTwoD(xSum/this.list.size(), ySum/this.list.size());
 		return this.centroid;
 	}
 
 	public void clearList() {
-		this.list = new ArrayList<Point>();
+		this.list = new ArrayList<PointTwoD>();
 	}
 
 	@Override
 	public void combine(KMCluster cluster) {
 		ArrayList<KMNum> fakeList = cluster.getFakeList();
 		for(int i = 0;i < fakeList.size();i ++) {
-			this.list.add((Point)fakeList.get(i));
+			this.list.add((PointTwoD)fakeList.get(i));
 		}
 		
 	}

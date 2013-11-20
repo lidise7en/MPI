@@ -11,6 +11,11 @@ public class DNACluster implements KMCluster {
 	private ArrayList<DNA> list = new ArrayList<DNA>();
 	private DNA centroid = null;
 	
+	public DNACluster(DNA centroid) {
+		
+		this.centroid = centroid;
+	}
+	
 	public DNACluster(ArrayList<DNA> list, DNA centroid) {
 		this.list = list;
 		this.centroid = centroid;

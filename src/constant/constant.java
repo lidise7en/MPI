@@ -5,5 +5,7 @@ public class constant {
 	public static String[] DNA_ELEMENT = {"A", "C", "G", "T"};
 	public static int pointRealm = 1000;
 	public static double difference = 1;
+	public static int NUM_OF_POINTS = 1000;
+	public static int K = 20;
 	public constant(){}
 }

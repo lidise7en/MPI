@@ -1,5 +1,6 @@
 package parallel;
 
+import mpi.*;
 import java.util.ArrayList;
 
 import util.MPIMessage;
