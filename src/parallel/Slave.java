@@ -17,7 +17,8 @@ public class Slave {
 	public void waitForCompletion() {
 		while(flag) {
 			MPIMessage[] messages = new MPIMessage[1];
-			 mpi.MPI_Scatter(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
+			try {
+			 MPI.COMM_WORLD.Scatter(messages, 0, 1, MPI.OBJECT, messages, 0, 1, MPI.OBJECT, 0);
 			 if(messages[0] == null)
 				 flag = false;
 			 else {
@@ -30,7 +31,11 @@ public class Slave {
 				 }
 				 messages[0].setClusterList(tmpCluster);
 			 }
-			 MPI_Gather(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
+			 MPI.COMM_WORLD.Gather(messages,0, 1, MPI.OBJECT, messages, 0, 1, MPI.OBJECT, 0);
+		}
+		catch(MPIException e) {
+			System.out.println("We have MPI Exception!\n");
+		}
 		}
 	}
 }

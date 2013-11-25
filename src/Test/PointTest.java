@@ -16,12 +16,15 @@ import util.PointTwoD;
 
 public class PointTest {
 
+	public PointTest() {}
 	public static void main(String[] args) {
-		
-		MPI.init(args);
-		int size = MPI.COMM_WORLD.size();
+		try {
+		MPI.Init(args);
+		int size = MPI.COMM_WORLD.Size();
+		System.out.println("args" + args);
+		System.out.println("size is " + size + "\n");
 		int rank = MPI.COMM_WORLD.Rank();
-		
+		System.out.println("rank is " + rank + "\n");
 		if(rank == 0) {
 			System.out.println("This is a master!");
 			ArrayList<KMNum> pointSet = new ArrayList<KMNum>();
@@ -46,6 +49,10 @@ public class PointTest {
 			Slave runningSlave = new Slave(size);
 			runningSlave.waitForCompletion();
 		}
-		MPI.finalize();
+		MPI.Finalize();
+		}
+		catch(MPIException e) {
+			System.out.println("We have a MPI Exception\n");
+		}
 	}
 }

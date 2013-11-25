@@ -32,7 +32,7 @@ public class Master {
 	
 	public void runMPI() {
 		
-		if(data.size() >= this.k) {
+		if(data.size() <= this.k) {
 			System.out.println("We have too much data.\n");
 			return;
 		}
@@ -48,8 +48,8 @@ public class Master {
 			for(int i = 0;i < result.size();i ++) {
 				messages[i] = new MPIMessage(result.get(i), this.clusters);
 			}
-			
-			 MPI_Scatter(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
+		         try {	
+			 MPI.COMM_WORLD.Scatter(messages, 0, 1, MPI.OBJECT, messages, 0, 1, MPI.OBJECT, 0);
 			 
 			 ArrayList<KMNum> tmpList = messages[0].getDataList();
 			 ArrayList<KMCluster> tmpCluster = messages[0].getClusterList();
@@ -59,8 +59,11 @@ public class Master {
 					tmpCluster.get(idx).addEle(tmpList.get(i).clone());
 			 }
 			 messages[0].setClusterList(tmpCluster);
-			 MPI_Gather(messages, 1, messages[0].getClass(), messages, 1, messages[0].getClass(), 0, MPI_COMM_WORLD);
-			 
+			 MPI.COMM_WORLD.Gather(messages, 0, 1, MPI.OBJECT, messages, 0, 1, MPI.OBJECT, 0);
+			 }
+			 catch(MPIException e) {
+				System.out.println("We have MPI Exception!\n");
+			 }
 			 ArrayList<KMCluster> newClusters = messages[0].getClusterList();
 			 for(int j = 1;j < messages.length;j ++) {
 				 for(int m = 0;m < messages[j].getClusterList().size();m ++) {

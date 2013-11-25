@@ -11,12 +11,14 @@ import util.PointGen;
 import util.DNA;
 import Interface.KMCluster;
 import Interface.KMNum;
-
+import mpi.*;
 public class DNATest {
 
+	public DNATest() {}
 	public static void main(String[] args) {
-		MPI.init(args);
-		int size = MPI.COMM_WORLD.size();
+		try {
+		MPI.Init(args);
+		int size = MPI.COMM_WORLD.Size();
 		int rank = MPI.COMM_WORLD.Rank();
 		
 		if(rank == 0) {
@@ -34,7 +36,7 @@ public class DNATest {
 			}
 			Master runningMaster = new Master(dnaSet, clusterSet, diff, constant.constant.K, size);
 			long startTime = System.currentTimeMillis();
-			runningMaster.runMPI();
+		runningMaster.runMPI();
 			long endTime = System.currentTimeMillis();
 			System.out.println("This process cost " + (endTime - startTime) + "in Master");
 		}
@@ -43,6 +45,10 @@ public class DNATest {
 			Slave runningSlave = new Slave(size);
 			runningSlave.waitForCompletion();
 		}
-		MPI.finalize();
+		MPI.Finalize();
+		}
+		catch(MPIException e) {
+			System.out.println("We have MPI Exception!\n");
+		}
 	}
 }
