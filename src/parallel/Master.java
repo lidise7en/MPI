@@ -13,7 +13,7 @@ public class Master {
 	
 
 	private ArrayList<KMNum> data;
-	private ArrayList<KMCluster> clusters;
+	public ArrayList<KMCluster> clusters;
 	private ArrayList<Double> diff;
 	private int k;
 	private int num;
@@ -89,7 +89,27 @@ public class Master {
 			}
 			*/
 		}
-		
+	        /*	
+	     	for(int i = 0;i < this.clusters.size();i ++) {
+			System.out.println("Cluster" + i + "\n");
+			ArrayList<KMNum> kmList = this.clusters.get(i).getFakeList();
+			for(KMNum num : kmList) {
+				System.out.println(num.toString() + "\n");
+			}
+		}
+		*/
+		/*kill all slaves */
+                MPIMessage[] killMessages = new MPIMessage[num];
+		for(int i = 0;i < num;i ++) 
+			killMessages[i] = null;
+		try {
+		MPI.COMM_WORLD.Scatter(killMessages, 0, 1, MPI.OBJECT, killMessages, 0, 1, MPI.OBJECT, 0);
+
+		MPI.COMM_WORLD.Gather(killMessages, 0, 1, MPI.OBJECT, killMessages, 0, 1, MPI.OBJECT, 0);
+		}
+		catch(MPIException e) {
+	
+		} 
 	}
 	
 	public ArrayList<ArrayList<KMNum>> partition() {

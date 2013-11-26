@@ -36,8 +36,16 @@ public class DNATest {
 			}
 			Master runningMaster = new Master(dnaSet, clusterSet, diff, constant.constant.K, size);
 			long startTime = System.currentTimeMillis();
-		runningMaster.runMPI();
+		        runningMaster.runMPI();
 			long endTime = System.currentTimeMillis();
+			
+			for(int i = 0;i < runningMaster.clusters.size();i ++) {
+                        	System.out.println("Cluster" + i + "\n");
+                        	ArrayList<KMNum> kmList = runningMaster.clusters.get(i).getFakeList();
+                        	for(KMNum num : kmList) {
+                                	System.out.println(num.toString() + "\n");
+                        	}
+                	}
 			System.out.println("This process cost " + (endTime - startTime) + "in Master");
 		}
 		else {

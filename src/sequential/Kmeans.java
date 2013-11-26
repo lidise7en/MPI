@@ -9,7 +9,7 @@ import Interface.KMNum;
 public class Kmeans {
 
 	private ArrayList<KMNum> data;
-	private ArrayList<KMCluster> clusters;
+	public ArrayList<KMCluster> clusters;
 	private ArrayList<Double> diff;
 	private int k;
 
@@ -23,7 +23,7 @@ public class Kmeans {
 	}
 	
 	public void runKMeans() {
-		if(data.size() >= this.k) {
+		if(data.size() <= this.k) {
 			System.out.println("We have too much data.\n");
 			return;
 		}
@@ -44,6 +44,15 @@ public class Kmeans {
 				this.diff.set(i, Math.abs(oldCentroid.CalDistance(newCentroid)));
 			}
 		}
+		/*
+		for(int i = 0;i < this.clusters.size();i ++) {
+                        System.out.println("Cluster" + i + "\n");
+                        ArrayList<KMNum> kmList = this.clusters.get(i).getFakeList();
+                        for(KMNum num : kmList) {
+                                System.out.println(num.toString() + "\n");
+                        }
+                }
+		*/
 	}
 	
 	public int findNearestCluster(KMNum num) {

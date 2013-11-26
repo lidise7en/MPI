@@ -42,6 +42,14 @@ public class PointTest {
 			long startTime = System.currentTimeMillis();
 			runningMaster.runMPI();
 			long endTime = System.currentTimeMillis();
+		
+			for(int i = 0;i < runningMaster.clusters.size();i ++) {
+                        	System.out.println("Cluster" + i + "\n");
+                        	ArrayList<KMNum> kmList = runningMaster.clusters.get(i).getFakeList();
+                        	for(KMNum num : kmList) {
+                                	System.out.println(num.toString() + "\n");
+                        	}
+                	}
 			System.out.println("This process cost " + (endTime - startTime) + "in Master");
 		}
 		else {
@@ -49,7 +57,10 @@ public class PointTest {
 			Slave runningSlave = new Slave(size);
 			runningSlave.waitForCompletion();
 		}
+		//debug
+		System.out.println("before Finalize in PointTest\n");
 		MPI.Finalize();
+		System.out.println("After Finalize in PointTest\n");
 		}
 		catch(MPIException e) {
 			System.out.println("We have a MPI Exception\n");
