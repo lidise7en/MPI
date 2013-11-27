@@ -2,16 +2,16 @@ package Test;
 
 import java.util.ArrayList;
 
+import mpi.MPI;
+import mpi.MPIException;
 import parallel.Master;
 import parallel.Slave;
+import util.DNA;
 import util.DNACluster;
 import util.DNAGen;
-import util.PointCluster;
-import util.PointGen;
-import util.DNA;
 import Interface.KMCluster;
 import Interface.KMNum;
-import mpi.*;
+import constant.Constant;
 public class DNATest {
 
 	public DNATest() {}
@@ -24,17 +24,17 @@ public class DNATest {
 		if(rank == 0) {
 			System.out.println("This is a master!");
 			ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
-			for(int i = 0;i < constant.constant.NUM_OF_POINTS;i ++) {
+			for(int i = 0;i < Constant.NUM_OF_POINTS;i ++) {
 				DNA newDNA = DNAGen.genDNA();
 				dnaSet.add(newDNA);
 			}
 			ArrayList<KMCluster> clusterSet = new ArrayList<KMCluster>();
 			ArrayList<Double> diff = new ArrayList<Double>();
-			for(int i = 0;i < constant.constant.K;i ++) {
+			for(int i = 0;i < Constant.K;i ++) {
 				clusterSet.add((KMCluster)new DNACluster((DNA)dnaSet.get(i)));
-				diff.add(constant.constant.difference + 1);
+				diff.add(Constant.difference + 1);
 			}
-			Master runningMaster = new Master(dnaSet, clusterSet, diff, constant.constant.K, size);
+			Master runningMaster = new Master(dnaSet, clusterSet, diff, Constant.K, size);
 			long startTime = System.currentTimeMillis();
 		        runningMaster.runMPI();
 			long endTime = System.currentTimeMillis();

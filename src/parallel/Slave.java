@@ -2,10 +2,11 @@ package parallel;
 
 import java.util.ArrayList;
 
+import mpi.MPI;
+import mpi.MPIException;
+import util.MPIMessage;
 import Interface.KMCluster;
 import Interface.KMNum;
-import util.MPIMessage;
-import mpi.*;
 public class Slave {
 
 	private int num;

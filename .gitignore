@@ -1,0 +1,9 @@
+*~
+*.class
+*.swp
+*.DS_Store
+bin/
+build/
+.metadata
+*.csv
+*.stream
