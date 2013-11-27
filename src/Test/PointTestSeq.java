@@ -19,12 +19,11 @@ public class PointTestSeq {
         // generate points
         ArrayList<KMNum> pointSet = new ArrayList<KMNum>();
         // record the answer we generate
-        ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
+        ArrayList<KMCluster> answer = PointGen.pointGen(pointSet);
         /*for(int i = 0;i < constant.constant.NUM_OF_POINTS;i ++) {
             PointTwoD newPoint = PointGen.genPoint();
             pointSet.add(newPoint);
         }*/
-        answer = PointGen.pointGen(pointSet);
 		
 		ArrayList<KMCluster> clusterSet = new ArrayList<KMCluster>();
 		ArrayList<Double> diff = new ArrayList<Double>();

@@ -23,29 +23,32 @@ public class DNATest {
 		
 		if(rank == 0) {
 			System.out.println("This is a master!");
+			
+			// generate DNA test set and the answer ahead
 			ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
-			for(int i = 0;i < Constant.NUM_OF_POINTS;i ++) {
+			/*for(int i = 0;i < Constant.NUM_OF_POINTS;i ++) {
 				DNA newDNA = DNAGen.genDNA();
 				dnaSet.add(newDNA);
-			}
+			}*/
+			ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
+			
+			// add to origin cluster
 			ArrayList<KMCluster> clusterSet = new ArrayList<KMCluster>();
 			ArrayList<Double> diff = new ArrayList<Double>();
 			for(int i = 0;i < Constant.K;i ++) {
 				clusterSet.add((KMCluster)new DNACluster((DNA)dnaSet.get(i)));
 				diff.add(Constant.difference + 1);
 			}
+			
+			// meat part of kMeans algorithm
 			Master runningMaster = new Master(dnaSet, clusterSet, diff, Constant.K, size);
 			long startTime = System.currentTimeMillis();
-		        runningMaster.runMPI();
+		    runningMaster.runMPI();
+		        
+		    // output result and validation 
 			long endTime = System.currentTimeMillis();
-			
-			for(int i = 0;i < runningMaster.clusters.size();i ++) {
-                        	System.out.println("Cluster" + i + "\n");
-                        	ArrayList<KMNum> kmList = runningMaster.clusters.get(i).getFakeList();
-                        	for(KMNum num : kmList) {
-                                	System.out.println(num.toString() + "\n");
-                        	}
-                	}
+			Master.validate(runningMaster.clusters, answer);
+
 			System.out.println("This process cost " + (endTime - startTime) + "in Master");
 		}
 		else {
