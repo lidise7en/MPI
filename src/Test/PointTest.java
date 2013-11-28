@@ -6,7 +6,6 @@ import mpi.MPI;
 import mpi.MPIException;
 import parallel.Master;
 import parallel.Slave;
-import util.PointCluster;
 import util.PointGen;
 import util.PointTwoD;
 import Interface.KMCluster;
@@ -31,17 +30,14 @@ public class PointTest {
                 ArrayList<KMNum> pointSet = new ArrayList<KMNum>();
                 // record the answer we generate
                 ArrayList<KMCluster> answer = PointGen.pointGen(pointSet);
-                /*
-                 * for(int i = 0;i < constant.constant.NUM_OF_POINTS;i ++) {
-                 * PointTwoD newPoint = PointGen.genPoint();
-                 * pointSet.add(newPoint); }
-                 */
 
-                ArrayList<KMCluster> clusterSet = new ArrayList<KMCluster>();
+                // generate first centroids which is relatively far apart
+                ArrayList<KMCluster> clusterSet = PointGen
+                        .centroidsGen(new ArrayList<PointTwoD>());
+
+                // initialize diff
                 ArrayList<Double> diff = new ArrayList<Double>();
                 for (int i = 0; i < Constant.K; i++) {
-                    clusterSet.add((KMCluster) new PointCluster(
-                            (PointTwoD) pointSet.get(i)));
                     diff.add(Constant.difference + 1);
                 }
                 System.out.println("MPI : Gen points accomplished\n");

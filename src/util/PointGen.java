@@ -17,26 +17,19 @@ import constant.Constant;
 public class PointGen {
     private static Random random = new Random();
 
-    /*
-     * public static PointTwoD genPoint() { return new
-     * PointTwoD((double)random.nextInt(constant.constant.pointRealm),
-     * (double)random.nextInt(constant.constant.pointRealm)); }
+    /**
+     * Generate the point set to do clustering
+     * 
+     * @param pointSet
+     * @return
      */
-
     public static ArrayList<KMCluster> pointGen(ArrayList<KMNum> pointSet) {
         // answer cluster
-        ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
+        ArrayList<KMCluster> answer;
         // generate each 2D centroids
         ArrayList<PointTwoD> centroids = new ArrayList<PointTwoD>();
-        for (int i = 0; i < Constant.K; i++) {
-            PointTwoD centroid = null;
-            do {
-                centroid = new PointTwoD(Constant.pointRealm
-                        * random.nextDouble(), Constant.pointRealm
-                        * random.nextDouble());
-            } while (tooClose(centroid, centroids));
-            centroids.add(centroid);
-        }
+
+        answer = centroidsGen(centroids);
 
         // generate the points for each centroid
         for (int i = 0; i < Constant.K; i++) {
@@ -44,18 +37,42 @@ public class PointGen {
                     .get(i).getX(), Constant.STDIVATION);
             NormalDistribution Ygenerator = new NormalDistribution(centroids
                     .get(i).getY(), Constant.STDIVATION);
-            PointCluster cluster = new PointCluster(centroids.get(i));
 
             // add points into cluster
             for (int j = 0; j < Constant.pointsInCluster; j++) {
                 PointTwoD point = new PointTwoD(Xgenerator.sample(),
                         Ygenerator.sample());
                 pointSet.add(point);
-                cluster.addEle(point);
+                answer.get(i).addEle(point);
             }
-            answer.add(cluster);
+
         }
 
+        return answer;
+    }
+
+    /**
+     * generate the initial centroids whicha are relatively far apart
+     * 
+     * @param centroids
+     * @return
+     */
+    public static ArrayList<KMCluster> centroidsGen(
+            ArrayList<PointTwoD> centroids) {
+        ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
+
+        for (int i = 0; i < Constant.K; i++) {
+            PointTwoD centroid = null;
+            do {
+                centroid = new PointTwoD(Constant.pointRealm
+                        * random.nextDouble(), Constant.pointRealm
+                        * random.nextDouble());
+            } while (tooClose(centroid, centroids));
+
+            centroids.add(centroid);
+            PointCluster cluster = new PointCluster(centroid);
+            answer.add(cluster);
+        }
         return answer;
     }
 

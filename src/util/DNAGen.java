@@ -15,21 +15,15 @@ public class DNAGen {
     // generate a list of generate DNA list
     public static ArrayList<KMCluster> DNAGenerator(ArrayList<KMNum> DNASet) {
         // answer cluster
-        ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
+        ArrayList<KMCluster> answer;
 
         // generate initial centroids
         ArrayList<DNA> centroids = new ArrayList<DNA>();
 
-        for (int i = 0; i < Constant.K; i++) {
-            DNA centroid = null;
-            do {
-                centroid = genDNA();
-            } while (tooClose(centroid, centroids));
-            DNACluster cluster = new DNACluster(centroid);
-            answer.add(cluster);
-        }
+        answer = centroidsGen(centroids);
 
-        // generate the points and make sure each DNA has only one nearest centroids
+        // generate the points and make sure each DNA has only one nearest
+        // centroids
         int index;
         for (int i = 0; i < Constant.K; i++) {
             DNA dna = null;
@@ -45,7 +39,31 @@ public class DNAGen {
     }
 
     /**
+     * Generate the centroids that is relatively far apart
+     * 
+     * @param centroids
+     * @return
+     */
+    public static ArrayList<KMCluster> centroidsGen(ArrayList<DNA> centroids) {
+        ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
+
+        for (int i = 0; i < Constant.K; i++) {
+            DNA centroid = null;
+            do {
+                centroid = genDNA();
+            } while (tooClose(centroid, centroids));
+
+            centroids.add(centroid);
+            DNACluster cluster = new DNACluster(centroid);
+            answer.add(cluster);
+        }
+
+        return answer;
+    }
+
+    /**
      * Check if a generated DNA has duplicated centroids
+     * 
      * @param dna
      * @param centroids
      * @return the index of the real centroids
@@ -55,7 +73,7 @@ public class DNAGen {
         boolean dupFlag = false;
         int minIndex = -1;
         double minDis = -1;
-        
+
         for (int i = 0; i < centroids.size(); i++) {
             double dis = dna.CalDistance(centroids.get(i));
             if (minIndex == -1 || dis < minDis) {
@@ -66,7 +84,7 @@ public class DNAGen {
                 dupFlag = true;
             }
         }
-        
+
         return dupFlag ? -1 : minIndex;
     }
 
