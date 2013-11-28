@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Interface.KMCluster;
 import Interface.KMNum;
-import constant.Constant;
+import constant.Constants;
 
 public class Kmeans {
 
@@ -70,7 +70,7 @@ public class Kmeans {
 	public boolean CalDifference() {
 		
 		for(int i = 0;i < this.clusters.size();i ++) {
-			if(this.diff.get(i) > Constant.difference) {
+			if(this.diff.get(i) > Constants.difference) {
 				return false;
 			}
 		}

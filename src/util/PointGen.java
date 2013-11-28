@@ -5,7 +5,7 @@ import java.util.Random;
 
 import Interface.KMCluster;
 import Interface.KMNum;
-import constant.Constant;
+import constant.Constants;
 
 /**
  * 
@@ -30,10 +30,10 @@ public class PointGen {
         answer = centroidsGen(centroids);
 
         // generate the points for each centroid
-        for (int i = 0; i < Constant.K; i++) {
+        for (int i = 0; i < Constants.K; i++) {
 
             // add points into cluster
-            for (int j = 0; j < Constant.pointsInCluster; j++) {
+            for (int j = 0; j < Constants.pointsInCluster; j++) {
                 PointTwoD point = new PointTwoD(nearPointGen(centroids.get(i)
                         .getX()), nearPointGen(centroids.get(i).getY()));
                 pointSet.add(point);
@@ -52,7 +52,8 @@ public class PointGen {
      * @return
      */
     private static double nearPointGen(double x) {
-        return x - Constant.CLUSTER_REALM + 2 * Constant.CLUSTER_REALM
+        
+        return x - Constants.CLUSTER_REALM + 2 * Constants.CLUSTER_REALM
                 * random.nextDouble();
     }
 
@@ -66,11 +67,11 @@ public class PointGen {
             ArrayList<PointTwoD> centroids) {
         ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
 
-        for (int i = 0; i < Constant.K; i++) {
+        for (int i = 0; i < Constants.K; i++) {
             PointTwoD centroid = null;
             do {
-                centroid = new PointTwoD(Constant.pointRealm
-                        * random.nextDouble(), Constant.pointRealm
+                centroid = new PointTwoD(Constants.pointRealm
+                        * random.nextDouble(), Constants.pointRealm
                         * random.nextDouble());
             } while (tooClose(centroid, centroids));
 
@@ -91,7 +92,7 @@ public class PointGen {
     private static boolean tooClose(PointTwoD point,
             ArrayList<PointTwoD> centroids) {
         for (PointTwoD centroid : centroids) {
-            if (point.CalDistance(centroid) < Constant.MIN_POINT_DIS) {
+            if (point.CalDistance(centroid) < Constants.MIN_POINT_DIS) {
                 return true;
             }
         }

@@ -1,6 +1,6 @@
 package constant;
 
-public class Constant {
+public class Constants {
    
     public static double difference = 1;
     // number of cluster
@@ -10,8 +10,8 @@ public class Constant {
     // points 2D
     public static double pointRealm = 1000;
     // the max euclidean distance between centroid
-    public static double MIN_POINT_DIS = pointRealm / Constant.K;
-    public static int pointsInCluster = Constant.NUM_OF_POINTS / Constant.K;
+    public static double MIN_POINT_DIS = pointRealm / Constants.K;
+    public static int pointsInCluster = Constants.NUM_OF_POINTS / Constants.K;
     public static final double STDIVATION = 1;
     public static double CLUSTER_REALM = MIN_POINT_DIS / 4;
 
