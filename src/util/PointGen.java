@@ -3,8 +3,6 @@ package util;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.commons.math3.distribution.NormalDistribution;
-
 import Interface.KMCluster;
 import Interface.KMNum;
 import constant.Constant;
@@ -33,15 +31,11 @@ public class PointGen {
 
         // generate the points for each centroid
         for (int i = 0; i < Constant.K; i++) {
-            NormalDistribution Xgenerator = new NormalDistribution(centroids
-                    .get(i).getX(), Constant.STDIVATION);
-            NormalDistribution Ygenerator = new NormalDistribution(centroids
-                    .get(i).getY(), Constant.STDIVATION);
 
             // add points into cluster
             for (int j = 0; j < Constant.pointsInCluster; j++) {
-                PointTwoD point = new PointTwoD(Xgenerator.sample(),
-                        Ygenerator.sample());
+                PointTwoD point = new PointTwoD(nearPointGen(centroids.get(i)
+                        .getX()), nearPointGen(centroids.get(i).getY()));
                 pointSet.add(point);
                 answer.get(i).addEle(point);
             }
@@ -49,6 +43,17 @@ public class PointGen {
         }
 
         return answer;
+    }
+
+    /**
+     * Generate a double that near to the given double
+     * 
+     * @param x
+     * @return
+     */
+    private static double nearPointGen(double x) {
+        return x - Constant.CLUSTER_REALM + 2 * Constant.CLUSTER_REALM
+                * random.nextDouble();
     }
 
     /**

@@ -13,6 +13,7 @@ public class Constant {
     public static double MIN_POINT_DIS = pointRealm / Constant.K;
     public static int pointsInCluster = Constant.NUM_OF_POINTS / Constant.K;
     public static final double STDIVATION = 1;
+    public static double CLUSTER_REALM = MIN_POINT_DIS / 4;
 
     // DNA
     public static int DNA_SIZE = 10;
