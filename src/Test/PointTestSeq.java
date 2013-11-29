@@ -8,7 +8,7 @@ import util.PointGen;
 import util.PointTwoD;
 import Interface.KMCluster;
 import Interface.KMNum;
-import constant.Constant;
+import constant.Constants;
 
 public class PointTestSeq {
 
@@ -24,8 +24,8 @@ public class PointTestSeq {
 
         // initialize diff
         ArrayList<Double> diff = new ArrayList<Double>();
-        for (int i = 0; i < Constant.K; i++) {
-            diff.add(Constant.difference + 1);
+        for (int i = 0; i < Constants.K; i++) {
+            diff.add(Constants.difference + 1);
         }
         System.out.println("Sequential : Gen points accomplished\n");
 

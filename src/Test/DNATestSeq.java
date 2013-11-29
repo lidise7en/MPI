@@ -8,7 +8,7 @@ import util.DNA;
 import util.DNAGen;
 import Interface.KMCluster;
 import Interface.KMNum;
-import constant.Constant;
+import constant.Constants;
 
 public class DNATestSeq {
 
@@ -23,12 +23,12 @@ public class DNATestSeq {
 
         // initialize diff
         ArrayList<Double> diff = new ArrayList<Double>();
-        for (int i = 0; i < Constant.K; i++) {
-            diff.add(Constant.difference + 1);
+        for (int i = 0; i < Constants.K; i++) {
+            diff.add(Constants.difference + 1);
         }
 
         // meat part for Kmeans
-        Kmeans runningKM = new Kmeans(dnaSet, clusterSet, diff, Constant.K);
+        Kmeans runningKM = new Kmeans(dnaSet, clusterSet, diff, Constants.K);
         long startTime = System.currentTimeMillis();
         runningKM.runKMeans();
 

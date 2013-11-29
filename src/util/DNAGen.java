@@ -6,7 +6,7 @@ import java.util.Random;
 import Interface.KMCluster;
 import Interface.KMNum;
 
-import constant.Constant;
+import constant.Constants;
 
 public class DNAGen {
 
@@ -47,7 +47,7 @@ public class DNAGen {
     public static ArrayList<KMCluster> centroidsGen(ArrayList<DNA> centroids) {
         ArrayList<KMCluster> answer = new ArrayList<KMCluster>();
 
-        for (int i = 0; i < Constant.K; i++) {
+        for (int i = 0; i < Constants.K; i++) {
             DNA centroid = null;
             do {
                 centroid = genDNA();
@@ -90,9 +90,9 @@ public class DNAGen {
 
     // generate one DNA
     private static DNA genDNA() {
-        String[] result = new String[Constant.DNA_SIZE];
-        for (int i = 0; i < Constant.DNA_SIZE; i++) {
-            result[i] = Constant.DNA_ELEMENT[random.nextInt(4)];
+        String[] result = new String[Constants.DNA_SIZE];
+        for (int i = 0; i < Constants.DNA_SIZE; i++) {
+            result[i] = Constants.DNA_ELEMENT[random.nextInt(4)];
         }
         return new DNA(result);
     }
@@ -106,7 +106,7 @@ public class DNAGen {
      */
     private static boolean tooClose(DNA point, ArrayList<DNA> centroids) {
         for (DNA centroid : centroids) {
-            if (point.CalDistance(centroid) < Constant.MIN_DNA_DIS) {
+            if (point.CalDistance(centroid) < Constants.MIN_DNA_DIS) {
                 return true;
             }
         }
