@@ -5,7 +5,6 @@ import java.util.Random;
 
 import Interface.KMCluster;
 import Interface.KMNum;
-
 import constant.Constants;
 
 public class DNAGen {
@@ -25,13 +24,13 @@ public class DNAGen {
         // generate the points and make sure each DNA has only one nearest
         // centroids
         int index;
-        for (int i = 0; i < Constant.DNA_NUM; i++) {
+        for (int i = 0; i < Constants.DNA_NUM; i++) {
             DNA dna = null;
             //do {
                 dna = genDNA();
-            //} while ((index = hasDupCentre(dna, centroids)) < 0);
+           // } while ((index = getCentre(dna, centroids)) < 0);
             // add DNA into real cluster
-            //answer.get(index).addEle(dna);
+            answer.get(getCentre(dna, centroids)).addEle(dna);
             DNASet.add(dna);
         }
 
@@ -62,30 +61,31 @@ public class DNAGen {
     }
 
     /**
-     * Check if a generated DNA has duplicated centroids
+     * Check a generated DNA's centroid
      * 
      * @param dna
      * @param centroids
      * @return the index of the real centroids
      */
-    private static int hasDupCentre(DNA dna, ArrayList<DNA> centroids) {
+    private static int getCentre(DNA dna, ArrayList<DNA> centroids) {
         // flag indicate the current minimum distance is duplicated
-        boolean dupFlag = false;
+       // boolean dupFlag = false;
         int minIndex = -1;
         double minDis = -1;
 
         for (int i = 0; i < centroids.size(); i++) {
             double dis = dna.CalDistance(centroids.get(i));
             if (minIndex == -1 || dis < minDis) {
-                dupFlag = false;
+          //      dupFlag = false;
                 minIndex = i;
                 minDis = dis;
-            } else if (dis == minDis) {
-                dupFlag = true;
-            }
+            } //else if (dis == minDis) {
+           //     dupFlag = true;
+            //}
         }
 
-        return dupFlag ? -1 : minIndex;
+        //return dupFlag ? -1 : minIndex;
+        return minIndex;
     }
 
     // generate one DNA
