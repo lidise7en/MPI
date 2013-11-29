@@ -205,6 +205,7 @@ public class Master {
             for (KMNum num : kmList) {
                 System.out.println(num.toString() + "\n");
             }
+	    System.out.println("Centroid is" + clusters.get(i).getCentroid().toString() + "\n");
         }
 
     }

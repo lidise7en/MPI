@@ -52,8 +52,11 @@ public class DNACluster implements KMCluster {
 	
 	public KMNum updateCentroid() {
 		if(this.list == null || this.list.size() == 0) {
-			System.out.println("Cannot update the centroid.");
-			return null;
+			if(this.list == null)
+				System.out.println("list null\n");
+
+			System.out.println("Cannot update the centroid. " + this.centroid + "\n");
+			return this.centroid;
 		}
 		/*calculte the avg of all DNAs */
 		int len = this.list.get(0).getElement().length;

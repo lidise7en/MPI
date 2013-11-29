@@ -55,6 +55,9 @@ public class PointCluster implements KMCluster {
 		// TODO Auto-generated method stub
 		double xSum = 0;
 		double ySum = 0;
+		if(this.list.size() == 0) {
+			return this.centroid;
+		}
 		for(int i = 0;i < this.list.size();i ++) {
 			xSum += this.list.get(i).getX();
 			ySum += this.list.get(i).getY();

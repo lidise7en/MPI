@@ -25,13 +25,13 @@ public class DNAGen {
         // generate the points and make sure each DNA has only one nearest
         // centroids
         int index;
-        for (int i = 0; i < Constant.K; i++) {
+        for (int i = 0; i < Constant.DNA_NUM; i++) {
             DNA dna = null;
-            do {
+            //do {
                 dna = genDNA();
-            } while ((index = hasDupCentre(dna, centroids)) < 0);
+            //} while ((index = hasDupCentre(dna, centroids)) < 0);
             // add DNA into real cluster
-            answer.get(index).addEle(dna);
+            //answer.get(index).addEle(dna);
             DNASet.add(dna);
         }
 

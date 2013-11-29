@@ -30,6 +30,9 @@ public class PointTestSeq {
         System.out.println("Sequential : Gen points accomplished\n");
 
         // kmeans meat part
+        //debug
+        for(int i = 0;i < clusterSet.size();i ++)
+		System.out.println("ClusterSet is" + clusterSet.get(i).getCentroid().toString() + "\n");
         Kmeans runningKM = new Kmeans(pointSet, clusterSet, diff, Constant.K);
         long startTime = System.currentTimeMillis();
         runningKM.runKMeans();
