@@ -6,6 +6,7 @@ import java.util.Random;
 import Interface.KMCluster;
 import Interface.KMNum;
 import constant.Constants;
+import constant.Constants.DNA_ELEMENT;
 
 public class DNAGen {
 
@@ -90,9 +91,9 @@ public class DNAGen {
 
     // generate one DNA
     private static DNA genDNA() {
-        String[] result = new String[Constants.DNA_SIZE];
+        DNA_ELEMENT[] result = new DNA_ELEMENT[Constants.DNA_SIZE];
         for (int i = 0; i < Constants.DNA_SIZE; i++) {
-            result[i] = Constants.DNA_ELEMENT[random.nextInt(4)];
+            result[i] = DNA_ELEMENT.values()[random.nextInt(4)];
         }
         return new DNA(result);
     }

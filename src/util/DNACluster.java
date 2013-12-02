@@ -2,6 +2,9 @@ package util;
 
 import java.util.ArrayList;
 
+import constant.Constants;
+import constant.Constants.DNA_ELEMENT;
+
 import Interface.KMCluster;
 import Interface.KMNum;
 
@@ -54,53 +57,35 @@ public class DNACluster implements KMCluster {
 		if(this.list == null || this.list.size() == 0) {
 			if(this.list == null)
 				System.out.println("list null\n");
-
-			System.out.println("Cannot update the centroid. " + this.centroid + "\n");
 			return this.centroid;
 		}
+
 		/*calculte the avg of all DNAs */
 		int len = this.list.get(0).getElement().length;
-		int[] numA = new int[len];
-		int[] numC = new int[len];
-		int[] numG = new int[len];
-		int[] numT = new int[len];
+		int[][] num = new int[DNA_ELEMENT.values().length][len];
 		
 		for(int i = 0;i < this.list.size();i ++) {
 			for(int j = 0;j < len;j ++) {
-				if(this.list.get(i).getElement()[j].equals("A")) {
-					numA[j] ++;
-				}
-				else if(this.list.get(i).getElement()[j].equals("C")) {
-					numC[j] ++;
-				}
-				else if(this.list.get(i).getElement()[j].equals("G")) {
-					numG[j] ++;
-				}
-				else if(this.list.get(i).getElement()[j].equals("T")) {
-					numT[j] ++;
-				}
+			    num[this.list.get(i).getElement()[j].ordinal()][j]++;
 			}
 		}
 		
-		String[] result = new String[len];
+		// set the type with most number to be the centroid type
+		Constants.DNA_ELEMENT[] result = new Constants.DNA_ELEMENT[len];
 		for(int i = 0;i < len;i ++) {
-			int a = numA[i];
-			int c = numC[i];
-			int g = numG[i];
-			int t = numT[i];
 			
-			int max = Math.max(Math.max(a, c), Math.max(g, t));
-			if(max == a) {
-				result[i] = "A";
+			int max = Math.max(Math.max(num[0][i], num[1][i]), Math.max(num[2][i], num[3][i]));
+			if(max == num[0][i]) {
+				result[i] = DNA_ELEMENT.A;
 			}
-			else if(max == c) {
-				result[i] = "C";
+			else if(max == num[1][i]) {
+				result[i] = DNA_ELEMENT.C;
 			}
-			else if(max == g) {
-				result[i] = "G";
+			else if(max == num[2][i]) {
+				result[i] = DNA_ELEMENT.G;
 			}
-			else if(max == t) {
-				result[i] = "T";
+			else if(max == num[3][i]) {
+				result[i] = DNA_ELEMENT.T;
 			}
 		}
 		this.centroid = new DNA(result);

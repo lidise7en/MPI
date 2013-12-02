@@ -3,27 +3,28 @@ package util;
 import java.util.Arrays;
 
 import Interface.KMNum;
+import constant.Constants.DNA_ELEMENT;
 
 public class DNA implements KMNum {
 
     private static final long serialVersionUID = 1L;
-    private String[] element = null;
+    private DNA_ELEMENT[] element = null;
 
-    public DNA(String[] ele) {
+    public DNA(DNA_ELEMENT[] ele) {
         this.element = ele;
     }
 
-    public String[] getElement() {
+    public DNA_ELEMENT[] getElement() {
         return element;
     }
 
-    public void setElement(String[] element) {
+    public void setElement(DNA_ELEMENT[] element) {
         this.element = element;
     }
 
     @Override
     public double CalDistance(KMNum e) {
-        String[] dnaString = ((DNA) e).getElement();
+        DNA_ELEMENT[] dnaString = ((DNA) e).getElement();
         if (element.length != dnaString.length)
             System.out.println("Two DNAs' length are not the same");
         double result = 0;
@@ -48,6 +49,11 @@ public class DNA implements KMNum {
     public boolean equals(Object pair) {
         if (pair instanceof DNA) {
             DNA p = (DNA) pair;
+            // same length
+            if (p.element.length != this.element.length) {
+                return false;
+            }
+            
             for (int i = 0; i < element.length; i++) {
                 if (!p.element[i].equals(this.element[i])) {
                     return false;
