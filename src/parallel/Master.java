@@ -198,7 +198,7 @@ public class Master {
      * 
      * @param clusters
      */
-    private static void showResult(ArrayList<KMCluster> clusters) {
+    public static void showResult(ArrayList<KMCluster> clusters) {
         for (int i = 0; i < clusters.size(); i++) {
             System.out.println("Cluster" + i + "\n");
             ArrayList<KMNum> kmList = clusters.get(i).getFakeList();

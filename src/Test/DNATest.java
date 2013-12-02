@@ -16,29 +16,7 @@ import constant.Constants;
 public class DNATest {
 
     public static void main(String[] args) {
-        // generate DNA test set and the answer ahead
-        ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
-        ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
-
-        // add to origin cluster
-        ArrayList<KMCluster> clusterSet = DNAGen
-                .centroidsGen(new ArrayList<DNA>());
-        ArrayList<KMCluster> newCluster = new ArrayList<KMCluster>();
-
-        // clone the cluster to a new one and trans to sequential test
-        for (KMCluster cluster : clusterSet) {
-            newCluster.add(new DNACluster((DNA) (((DNACluster) cluster)
-                    .getCentroid()).clone()));
-        }
-
-        System.out.println("MPI Sequential DNA test begin!!\n");
-        DNATestSeq.sequential(args, dnaSet, answer, clusterSet);
-        System.out.println("MPI Sequential DNA test end!!\n");
-
-        System.out.println("MPI Parallel DNA test begin!!\n");
-        parallel(args, dnaSet, answer, clusterSet, newCluster);
-        System.out.println("MPI Parallel DNA test end!!\n");
-
+        parallel(args);
     }
 
     /**
@@ -51,9 +29,7 @@ public class DNATest {
      * @param newCluster
      * @return
      */
-    public static void parallel(String[] args, ArrayList<KMNum> dnaSet,
-            ArrayList<KMCluster> answer, ArrayList<KMCluster> clusterSet,
-            ArrayList<KMCluster> newCluster) {
+    public static void parallel(String[] args) {
         try {
             MPI.Init(args);
             int size = MPI.COMM_WORLD.Size();
@@ -61,7 +37,27 @@ public class DNATest {
 
             if (rank == 0) {
                 System.out.println("This is a master!");
+                // generate DNA test set and the answer ahead
+                ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
+                ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
 
+                // add to origin cluster
+                ArrayList<KMCluster> clusterSet = DNAGen
+                        .centroidsGen(new ArrayList<DNA>());
+                ArrayList<KMCluster> newCluster = new ArrayList<KMCluster>();
+
+                // clone the cluster to a new one and trans to sequential test
+                for (KMCluster cluster : clusterSet) {
+                    newCluster.add(new DNACluster((DNA) (((DNACluster) cluster)
+                            .getCentroid()).clone()));
+                }
+                
+                System.out.println("MPI Sequential DNA test begin!!\n");
+                DNATestSeq.sequential(args, dnaSet, answer, clusterSet);
+                System.out.println("MPI Sequential DNA test end!!\n");
+                
+
+                System.out.println("MPI Parallel DNA test begin!!\n");
                 // initialize diff
                 ArrayList<Double> diff = new ArrayList<Double>();
                 for (int i = 0; i < Constants.K; i++) {
@@ -80,6 +76,7 @@ public class DNATest {
 
                 System.out.println("This process cost " + (endTime - startTime)
                         + "in Master");
+                System.out.println("MPI Parallel DNA test end!!\n");
             } else {
                 System.out.println("This is a Slave.");
                 Slave runningSlave = new Slave(size);

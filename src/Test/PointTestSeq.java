@@ -30,9 +30,10 @@ public class PointTestSeq {
 
         // kmeans meat part
         // debug
-        for (int i = 0; i < clusterSet.size(); i++)
-            System.out.println("ClusterSet is"
-                    + clusterSet.get(i).getCentroid().toString() + "\n");
+        //for (int i = 0; i < clusterSet.size(); i++)
+        //    System.out.println("ClusterSet is"
+        //            + clusterSet.get(i).getCentroid().toString() + "\n");
+
         Kmeans runningKM = new Kmeans(pointSet, clusterSet, diff, Constants.K);
         long startTime = System.currentTimeMillis();
         runningKM.runKMeans();
