@@ -162,8 +162,8 @@ public class Master {
     public static void validate(ArrayList<KMCluster> clusters,
             ArrayList<KMCluster> answer) {
         // print final result
-        showResult(clusters);
-        showResult(answer);
+        //showResult(clusters);
+        //showResult(answer);
         
         int mismatch = 0;
         // validation formula
