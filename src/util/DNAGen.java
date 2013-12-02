@@ -26,11 +26,11 @@ public class DNAGen {
         int index;
         for (int i = 0; i < Constants.DNA_NUM; i++) {
             DNA dna = null;
-            //do {
+            do {
                 dna = genDNA();
-           // } while ((index = getCentre(dna, centroids)) < 0);
+            } while ((index = getCentre(dna, centroids)) < 0);
             // add DNA into real cluster
-            answer.get(getCentre(dna, centroids)).addEle(dna);
+            answer.get(index).addEle(dna);
             DNASet.add(dna);
         }
 
@@ -69,23 +69,23 @@ public class DNAGen {
      */
     private static int getCentre(DNA dna, ArrayList<DNA> centroids) {
         // flag indicate the current minimum distance is duplicated
-       // boolean dupFlag = false;
+        boolean dupFlag = false;
         int minIndex = -1;
         double minDis = -1;
 
         for (int i = 0; i < centroids.size(); i++) {
             double dis = dna.CalDistance(centroids.get(i));
             if (minIndex == -1 || dis < minDis) {
-          //      dupFlag = false;
+                dupFlag = false;
                 minIndex = i;
                 minDis = dis;
-            } //else if (dis == minDis) {
-           //     dupFlag = true;
-            //}
+            } else if (dis == minDis) {
+                dupFlag = true;
+            }
         }
 
-        //return dupFlag ? -1 : minIndex;
-        return minIndex;
+        return dupFlag ? -1 : minIndex;
+        //return minIndex;
     }
 
     // generate one DNA

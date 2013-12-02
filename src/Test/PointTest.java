@@ -59,7 +59,7 @@ public class PointTest {
                 }
                 
                 System.out.println("MPI Sequential POINT test begin!!\n");
-                PointTestSeq.sequential(args, pointSet, answer, clusterSet);
+                PointTestSeq.sequential(args, pointSet, answer, newCluster);
                 System.out.println("MPI Sequential POINT test end!!\n");
 
                 System.out.println("MPI Parallel POINT test begin!!\n");
