@@ -53,7 +53,7 @@ public class DNATest {
                 }
                 
                 System.out.println("MPI Sequential DNA test begin!!\n");
-                DNATestSeq.sequential(args, dnaSet, answer, clusterSet);
+                DNATestSeq.sequential(args, dnaSet, answer, newCluster);
                 System.out.println("MPI Sequential DNA test end!!\n");
                 
 

@@ -16,7 +16,7 @@ public class Constants {
     public static double CLUSTER_REALM = MIN_POINT_DIS / 2;
 
     // DNA
-    public static int DNA_NUM = 100000;
+    public static int DNA_NUM = 1000000;
     public static int DNA_SIZE = 10;
     public static String[] DNA_ELEMENT = { "A", "C", "G", "T" };
     public static int MIN_DNA_DIS = 0;

@@ -28,7 +28,7 @@ public class DNA implements KMNum {
             System.out.println("Two DNAs' length are not the same");
         double result = 0;
         for (int i = 0; i < element.length; i++) {
-            if (element[i].equals(dnaString[i])) {
+            if (!element[i].equals(dnaString[i])) {
                 result++;
             }
         }
@@ -49,7 +49,7 @@ public class DNA implements KMNum {
         if (pair instanceof DNA) {
             DNA p = (DNA) pair;
             for (int i = 0; i < element.length; i++) {
-                if (p.element[i] != this.element[i]) {
+                if (!p.element[i].equals(this.element[i])) {
                     return false;
                 }
             }
@@ -60,10 +60,6 @@ public class DNA implements KMNum {
 
     @Override
     public int hashCode() {
-        int sum = 1;
-        for (int i = 0; i < element.length; i++) {
-            sum *= this.element[i].hashCode();
-        }
-        return sum;
+        return Arrays.hashCode(element);
     }
 }

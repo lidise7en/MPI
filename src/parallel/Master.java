@@ -180,14 +180,16 @@ public class Master {
                     match = ansCluster;
                 }
             }
-            
+            //System.out.println("minDis is" + minDis);
+	    //System.out.println("match is" + match.getCentroid()); 
             // compute the mismatch number
             HashSet<KMNum> answerList =  new HashSet<KMNum>(match.getFakeList());
-            for (KMNum genNum : cluster.getFakeList()) {
+	    for (KMNum genNum : cluster.getFakeList()) {
                 if (!answerList.contains(genNum)) {
                     mismatch++;
                 }
             }
+	    //System.out.println("mismatch is" + mismatch);
         }
         
         System.out.println("Mismatch Number :" + mismatch);
