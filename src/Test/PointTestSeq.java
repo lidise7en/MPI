@@ -4,23 +4,22 @@ import java.util.ArrayList;
 
 import parallel.Master;
 import sequential.Kmeans;
-import util.PointGen;
-import util.PointTwoD;
 import Interface.KMCluster;
 import Interface.KMNum;
 import constant.Constants;
 
 public class PointTestSeq {
 
-    public static void main(String[] args) {
-        // generate points
-        ArrayList<KMNum> pointSet = new ArrayList<KMNum>();
-
-        // record the answer we generate
-        ArrayList<KMCluster> answer = PointGen.pointGen(pointSet);
-
-        ArrayList<KMCluster> clusterSet = PointGen
-                .centroidsGen(new ArrayList<PointTwoD>());
+    /**
+     * Sequential test for points
+     * 
+     * @param args
+     * @param pointSet
+     * @param answer
+     * @param clusterSet
+     */
+    public static void sequential(String[] args, ArrayList<KMNum> pointSet,
+            ArrayList<KMCluster> answer, ArrayList<KMCluster> clusterSet) {
 
         // initialize diff
         ArrayList<Double> diff = new ArrayList<Double>();
@@ -30,9 +29,10 @@ public class PointTestSeq {
         System.out.println("Sequential : Gen points accomplished\n");
 
         // kmeans meat part
-        //debug
-        for(int i = 0;i < clusterSet.size();i ++)
-		System.out.println("ClusterSet is" + clusterSet.get(i).getCentroid().toString() + "\n");
+        // debug
+        for (int i = 0; i < clusterSet.size(); i++)
+            System.out.println("ClusterSet is"
+                    + clusterSet.get(i).getCentroid().toString() + "\n");
         Kmeans runningKM = new Kmeans(pointSet, clusterSet, diff, Constants.K);
         long startTime = System.currentTimeMillis();
         runningKM.runKMeans();

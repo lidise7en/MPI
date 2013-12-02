@@ -7,6 +7,7 @@ import mpi.MPIException;
 import parallel.Master;
 import parallel.Slave;
 import util.DNA;
+import util.DNACluster;
 import util.DNAGen;
 import Interface.KMCluster;
 import Interface.KMNum;
@@ -14,10 +15,45 @@ import constant.Constants;
 
 public class DNATest {
 
-    public DNATest() {
+    public static void main(String[] args) {
+        // generate DNA test set and the answer ahead
+        ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
+        ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
+
+        // add to origin cluster
+        ArrayList<KMCluster> clusterSet = DNAGen
+                .centroidsGen(new ArrayList<DNA>());
+        ArrayList<KMCluster> newCluster = new ArrayList<KMCluster>();
+
+        // clone the cluster to a new one and trans to sequential test
+        for (KMCluster cluster : clusterSet) {
+            newCluster.add(new DNACluster((DNA) (((DNACluster) cluster)
+                    .getCentroid()).clone()));
+        }
+
+        System.out.println("MPI Sequential DNA test begin!!\n");
+        DNATestSeq.sequential(args, dnaSet, answer, clusterSet);
+        System.out.println("MPI Sequential DNA test end!!\n");
+
+        System.out.println("MPI Parallel DNA test begin!!\n");
+        parallel(args, dnaSet, answer, clusterSet, newCluster);
+        System.out.println("MPI Parallel DNA test end!!\n");
+
     }
 
-    public static void main(String[] args) {
+    /**
+     * parallel test for DNA
+     * 
+     * @param args
+     * @param dnaSet
+     * @param answer
+     * @param clusterSet
+     * @param newCluster
+     * @return
+     */
+    public static void parallel(String[] args, ArrayList<KMNum> dnaSet,
+            ArrayList<KMCluster> answer, ArrayList<KMCluster> clusterSet,
+            ArrayList<KMCluster> newCluster) {
         try {
             MPI.Init(args);
             int size = MPI.COMM_WORLD.Size();
@@ -25,14 +61,6 @@ public class DNATest {
 
             if (rank == 0) {
                 System.out.println("This is a master!");
-
-                // generate DNA test set and the answer ahead
-                ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
-                ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
-
-                // add to origin cluster
-                ArrayList<KMCluster> clusterSet = DNAGen
-                        .centroidsGen(new ArrayList<DNA>());
 
                 // initialize diff
                 ArrayList<Double> diff = new ArrayList<Double>();
@@ -61,5 +89,6 @@ public class DNATest {
         } catch (MPIException e) {
             System.out.println("We have MPI Exception!\n");
         }
+
     }
 }

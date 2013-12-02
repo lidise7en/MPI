@@ -4,22 +4,21 @@ import java.util.ArrayList;
 
 import parallel.Master;
 import sequential.Kmeans;
-import util.DNA;
-import util.DNAGen;
 import Interface.KMCluster;
 import Interface.KMNum;
 import constant.Constants;
 
 public class DNATestSeq {
 
-    public static void main(String[] args) {
-        // generate DNA test set and the answer ahead
-        ArrayList<KMNum> dnaSet = new ArrayList<KMNum>();
-        ArrayList<KMCluster> answer = DNAGen.DNAGenerator(dnaSet);
-
-        // add to origin cluster
-        ArrayList<KMCluster> clusterSet = DNAGen
-                .centroidsGen(new ArrayList<DNA>());
+    /**
+     * Sequential test of the DNA test
+     * @param args
+     * @param dnaSet
+     * @param answer
+     * @param clusterSet2 
+     */
+    public static void sequential(String[] args, ArrayList<KMNum> dnaSet,
+            ArrayList<KMCluster> answer, ArrayList<KMCluster> clusterSet) {
 
         // initialize diff
         ArrayList<Double> diff = new ArrayList<Double>();
